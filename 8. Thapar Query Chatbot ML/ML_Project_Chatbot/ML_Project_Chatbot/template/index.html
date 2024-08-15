@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Network Deployment</title>
+    <script>
+        async function predict() {
+            const inputs = document.getElementById('inputs').value.split(',').map(Number);
+            const response = await fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ inputs }),
+            });
+            const result = await response.json();
+            document.getElementById('result').innerText = `Prediction: ${result.prediction}`;
+        }
+    </script>
+</head>
+<body>
+    <h1>Neural Network Deployment</h1>
+    <label for="inputs">Enter Inputs (comma-separated):</label>
+    <input type="text" id="inputs">
+    <button onclick="predict()">Predict</button>
+    <p id="result"></p>
+</body>
+</html>
